@@ -48,6 +48,7 @@ class Config:
             "discord_status_count": False if not self._select_val("general", "discord_status_count") else int(self._select_val("general", "discord_status_count")),
             "info_screenshots": bool(int(self._select_val("general", "info_screenshots"))),
             "loot_screenshots": bool(int(self._select_val("general", "loot_screenshots"))),
+            "launcher_path": self._select_val("general", "launcher_path"),
         }
 
         # Added for dclone ip hunting

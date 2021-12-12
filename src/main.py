@@ -21,6 +21,7 @@ from game_stats import GameStats
 from health_manager import HealthManager
 from death_manager import DeathManager
 from bot import Bot
+from game_restart import restart_game
 
 
 def run_bot(
@@ -53,6 +54,8 @@ def run_bot(
                 Logger.info(f"Max game length reached. Attempting to restart {config.general['name']}!")
                 if config.general["info_screenshots"]:
                     cv2.imwrite("./info_screenshots/info_max_game_length_reached_" + time.strftime("%Y%m%d_%H%M%S") + ".png", bot._screen.grab())
+                if config.general["launcher_path"]:
+                    restart_game(screen, config.general["monitor"], config.general["launcher_path"])
             elif death_manager.died():
                 game_stats.log_death()
             elif health_manager.did_chicken():
