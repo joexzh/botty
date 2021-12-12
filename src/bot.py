@@ -22,6 +22,7 @@ from npc_manager import NpcManager
 from health_manager import HealthManager
 from death_manager import DeathManager
 from char.sorceress import Sorceress
+from char.trapsin import Trapsin
 from char.hammerdin import Hammerdin
 from run import Pindle, ShenkEld, Trav, Nihlatak
 from town import TownManager, A3, A4, A5
@@ -48,6 +49,8 @@ class Bot:
             self._char: IChar = Sorceress(self._config.sorceress, self._config.char, self._screen, self._template_finder, self._ui_manager, self._pather)
         elif self._config.char["type"] == "hammerdin":
             self._char: IChar = Hammerdin(self._config.hammerdin, self._config.char, self._screen, self._template_finder, self._ui_manager, self._pather)
+        elif self._config.char["type"] == "trapsin":
+            self._char: IChar = Trapsin(self._config.trapsin, self._config.char, self._screen, self._template_finder, self._ui_manager, self._pather)
         else:
             Logger.error(f'{self._config.char["type"]} is not supported! Closing down bot.')
             os._exit(1)
@@ -82,7 +85,7 @@ class Bot:
         self._picked_up_items = False
         self._curr_loc: Union[bool, Location] = None
         self._tps_left = 10 # assume half full tp book
-        self._pre_buffed = 0
+        self._pre_buffed = False
         self._stopping = False
         self._pausing = False
         self._current_threads = []
@@ -262,7 +265,8 @@ class Bot:
         self.trigger_or_stop("create_game")
 
     def on_end_run(self):
-        self._pre_buffed = True
+        if not self._config.char["pre_buff_every_run"]:
+            self._pre_buffed = True
         success = self._char.tp_town()
         if success:
             self._tps_left -= 1

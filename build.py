@@ -29,8 +29,8 @@ def clean_up():
         os.remove("main.spec")
     if os.path.exists("health_manager.spec"):
         os.remove("health_manager.spec")
-    if os.path.exists("shop.spec"):
-        os.remove("shop.spec")
+    if os.path.exists("shopper.spec"):
+        os.remove("shopper.spec")
 
 if __name__ == "__main__":
     new_dev_version_code = None
@@ -60,17 +60,18 @@ if __name__ == "__main__":
                 shutil.rmtree(path)
         shutil.rmtree(botty_dir)
 
-    for exe in ["main.py", "shop.py", "health_manager.py"]:
+    for exe in ["main.py", "shopper.py", "health_manager.py"]:
         installer_cmd = f"pyinstaller --onefile --distpath {botty_dir} --exclude-module graphviz --paths .\\src --paths {args.conda_path}\\envs\\botty\\lib\\site-packages src\\{exe}"
         os.system(installer_cmd)
 
-    os.system(f"cd {botty_dir} && mkdir params && cd ..")
+    os.system(f"cd {botty_dir} && mkdir config && cd ..")
 
     with open(f"{botty_dir}/config/custom.ini", "w") as f: 
         f.write("; Add parameters you want to overwrite from param.ini here")
     shutil.copy("config/game.ini", f"{botty_dir}/config/")
     shutil.copy("config/params.ini", f"{botty_dir}/config/")
     shutil.copy("config/pickit.ini", f"{botty_dir}/config/")
+    shutil.copy("config/shop.ini", f"{botty_dir}/config/")
     shutil.copy("README.md", f"{botty_dir}/")
     shutil.copytree("assets", f"{botty_dir}/assets")
     clean_up()
