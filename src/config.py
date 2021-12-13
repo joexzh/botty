@@ -49,6 +49,7 @@ class Config:
             "info_screenshots": bool(int(self._select_val("general", "info_screenshots"))),
             "loot_screenshots": bool(int(self._select_val("general", "loot_screenshots"))),
             "launcher_path": self._select_val("general", "launcher_path"),
+            "hero_name": self._select_val("general", "hero_name"),
         }
 
         # Added for dclone ip hunting
