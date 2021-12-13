@@ -55,7 +55,7 @@ def run_bot(
                 if config.general["info_screenshots"]:
                     cv2.imwrite("./info_screenshots/info_max_game_length_reached_" + time.strftime("%Y%m%d_%H%M%S") + ".png", bot._screen.grab())
                 if config.general["launcher_path"]:
-                    GameRestart(screen, config).restart_game()
+                    GameRestart(screen, config).restart_game(is_online=True)
             elif death_manager.died():
                 game_stats.log_death()
             elif health_manager.did_chicken():
