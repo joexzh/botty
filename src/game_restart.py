@@ -49,9 +49,6 @@ class GameRestart:
         return np.array(self._sct.grab(self._sct.monitors[self._config.general['monitor']]))
 
     def click_bnet_play(self, timeout=60):
-        template = self._template_finder.get_template(BNET_PLAY)
-        h, w = template.shape[:2]
-
         start = time.time()
         Logger.debug("wait for bnet play button")
         while 1:
