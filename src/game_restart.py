@@ -89,7 +89,7 @@ class GameRestart:
         return match.valid
 
     def select_hero(self, is_online=False):
-        relative_pos = (1100, 30) if is_online else (1200, 30)
+        relative_pos = (1100, 30) if is_online else (1200, 30)  # online tab, offline tab position
         abs_pos = self._screen.convert_screen_to_monitor(relative_pos)
         mouse.move(abs_pos[0], abs_pos[1])
         time.sleep(0.1)
