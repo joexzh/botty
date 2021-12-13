@@ -28,7 +28,8 @@ class GameRestart:
 
     def is_config_valid(self) -> bool:
         if not self._config.general["launcher_path"] or not self._config.general["hero_name"]:
-            Logger.debug(f"no launcher_path or hero_name: {self._config.general['launcher_path']}, self._config.general['hero_name']")
+            Logger.debug(
+                f"no launcher_path or hero_name: {self._config.general['launcher_path']}, self._config.general['hero_name']")
             return False
         if not os.path.exists(self._config.general["launcher_path"]):
             Logger.debug(self._config.general["launcher_path"] + " not exists")
@@ -56,19 +57,20 @@ class GameRestart:
         while 1:
             if time.time() - start > timeout:
                 return False
-            match = self._template_finder.search(BNET_PLAY, self.grab_ss(), use_grayscale=True)
+            match = self._template_finder.search(BNET_PLAY, self.grab_ss(), normalize_monitor=True, use_grayscale=True)
             if not match.valid:  # not match bnet play button
                 time.sleep(1)
                 continue
 
-            mouse.move(match.position[0] + w / 2, match.position[1] + h / 2, True)
+            mouse.move(match.position[0], match.position[1], True)
             time.sleep(0.1)
             mouse.click()
             Logger.debug("click bnet play button")
             return True
 
     def wait_for_game(self, timeout=60):
-        pos = self._screen.convert_screen_to_monitor((self._config.ui_pos["screen_width"] / 2, self._config.ui_pos["screen_height"] / 2))
+        pos = self._screen.convert_screen_to_monitor(
+            (self._config.ui_pos["screen_width"] / 2, self._config.ui_pos["screen_height"] / 2))
         mouse.move(pos[0], pos[1])
 
         Logger.debug("wait for blz logo")
@@ -131,7 +133,8 @@ class GameRestart:
             if self.select_hero(is_online):
                 return True
         else:
-            Logger.error(f"game restart: tried {retry} times yet still failed to find your hero. Please press enter to exit botty...")
+            Logger.error(
+                f"game restart: tried {retry} times yet still failed to find your hero. Please press enter to exit botty...")
             input()
             exit(1)
 
