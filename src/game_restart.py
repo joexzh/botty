@@ -38,7 +38,7 @@ class GameRestart:
         if not os.path.exists(hero_img_path):
             Logger.debug(hero_img_path + " not exists")
             return False
-        Logger.debug("restart game: config is valid")
+        Logger.info("game restart: found valid config")
         return True
 
     def open_launcher(self):
@@ -110,13 +110,9 @@ class GameRestart:
         return True
 
     def restart_game(self, is_online=False, retry=10) -> bool:
-        if not self.is_config_valid():
-            Logger.debug("game restart: config not valid")
-            return False
-
-        Logger.info("game restart: found valid config, try to kill and restart game")
-        for _ in range(retry):
-            Logger.debug(f"game restart: retry {retry}")
+        Logger.info("game restart: try to kill and restart game")
+        for i in range(retry):
+            Logger.debug(f"game restart: retry {i}")
             self.kill_process()
             self.open_launcher()
             if not self.click_bnet_play():

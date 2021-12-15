@@ -61,7 +61,7 @@ run_shenk=0
 | name                 | Name used in terminal and discord messages |
 | saved_games_folder   | Optional folder path of Diablo 2 : Ressurrected saved games |
 | launcher_path        | Game restart: Optional Path of `Diablo II Resurrected Launcher.exe`. If it is set, botty will kill and then restart Bnet and D2R when reach `max_game_length_s` |
-| hero_name            | Game restart: Optional hero name for custom png file in Config/hero_img. Used for select the right hero. Game restart will only work when all config and custom png are set |  
+| hero_name            | Game restart: Optional hero name for custom png file in Config/hero_img. Used for select the right hero. Game restart will only work when `launcher_path`, `hero_name` and `config/hero_img/hero_name.png` are properly set |  
 | monitor              | Select on which monitor D2R is running in case multiple are available |
 | max_game_length_s    | Botty will attempt to stop whatever its doing and try to restart a new game. Note if this fails, botty will attempt to shut down D2R and Bnet |
 | exit_key             | Pressing this key (anywhere), will force botty to shut down |
