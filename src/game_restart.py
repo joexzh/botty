@@ -54,7 +54,7 @@ class GameRestart:
         while 1:
             if time.time() - start > timeout:
                 return False
-            match = self._template_finder.search(BNET_PLAY, self.grab_ss(), normalize_monitor=True, use_grayscale=True)
+            match = self._template_finder.search(BNET_PLAY, self.grab_ss(), use_grayscale=True)
             if not match.valid:  # not match bnet play button
                 time.sleep(1)
                 continue
@@ -148,5 +148,6 @@ if __name__ == "__main__":
     else:
         print(f"ERROR: Unkown logg_lvl {conf.general['logg_lvl']}. Must be one of [info, debug]")
     scr = Screen(conf.general["monitor"])
-
-    GameRestart(scr, conf).restart_game(is_online=False)
+    re = GameRestart(scr, conf)
+    if re.is_config_valid():
+        GameRestart(scr, conf).restart_game(is_online=False)
